@@ -6,22 +6,24 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    public function up()
     {
         Schema::create('domain_details', function (Blueprint $table) {
             $table->id();
+            $table->string('domain_name');
+            $table->string('ftp_user');
+            $table->string('ftp_password');
+            $table->string('db_name');
+            $table->string('db_user');
+            $table->string('db_password');
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('domain_details');
     }
+
 };

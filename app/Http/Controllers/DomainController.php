@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DomainDetails;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class DomainController extends Controller
 {
@@ -13,7 +16,20 @@ class DomainController extends Controller
 
         exec(base_path('resources/scripts/create_domain.bat ').$domain, $output);
 
-        if($output[array_key_last($output)] === 'success') {
+        if(array_key_last($output) == 5) {
+            $output = [
+                'domain_name' => $output[0],
+                'ftp_user' => $output[1],
+                'ftp_password' => $output[2],
+                'db_name' => $output[3],
+                'db_user' => $output[4],
+                'db_password' => $output[5],
+            ];
+
+            $domainDetails = new DomainDetails($output);
+
+            $user = Auth::user();
+            $user->domainDetails()->save($domainDetails);
             session()->flash('success', "The domain with name \"$domain\" was successfully!");
         } else {
             session()->flash('error', "Something went wrong.\"{$output[array_key_last($output)]}\"");
@@ -24,43 +40,8 @@ class DomainController extends Controller
 
     public function getAllDomains()
     {
-        $domains = [];
-        $data = [
-            [
-                "domain_name"=>"Test1",
-                "Ftpuser"=>"test1",
-                "FtpPassword"=>"xHeslo123",
-                "DbName"=>"test1.db",
-                "DbUser"=>"test1",
-                "DbPassword"=>"xHeslo123"
-            ],
-            [
-                "domain_name"=>"Test2",
-                "Ftpuser"=>"test2",
-                "FtpPassword"=>"xHeslo123",
-                "DbName"=>"test2.db",
-                "DbUser"=>"test2",
-                "DbPassword"=>"xHeslo123"
-            ],
-            [
-                "domain_name"=>"Test3",
-                "Ftpuser"=>"test3",
-                "FtpPassword"=>"xHeslo123",
-                "DbName"=>"test3.db",
-                "DbUser"=>"test3",
-                "DbPassword"=>"xHeslo123"
-            ],
-            [
-                "domain_name"=>"Test4",
-                "Ftpuser"=>"test4",
-                "FtpPassword"=>"xHeslo123",
-                "DbName"=>"test4.db",
-                "DbUser"=>"test4",
-                "DbPassword"=>"xHeslo123"
-            ],
-        ];
-        exec(base_path('resources/scripts/get_domains.bat '), $domains);
-
-       return view('dashboard', ['domains'=>$data]);
+        $user = Auth::user();
+        $domains = $user->domainDetails;
+       return view('dashboard', compact('domains'));
     }
 }

@@ -1,3 +1,9 @@
 @echo off
 
-echo error creating FTP user
+echo test
+echo test
+echo test
+echo test
+echo test
+echo test
+

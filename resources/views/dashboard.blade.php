@@ -44,19 +44,19 @@
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                            <div class="text-sm leading-5 text-gray-900">{{ $domain['Ftpuser'] }}</div>
+                                            <div class="text-sm leading-5 text-gray-900">{{ $domain['ftp_user'] }}</div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                            <div class="text-sm leading-5 text-gray-900">{{ $domain['FtpPassword'] }}</div>
+                                            <div class="text-sm leading-5 text-gray-900">{{ $domain['ftp_password'] }}</div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                            <div class="text-sm leading-5 text-gray-900">{{ $domain['DbName'] }}</div>
+                                            <div class="text-sm leading-5 text-gray-900">{{ $domain['db_name'] }}</div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                            <div class="text-sm leading-5 text-gray-900">{{ $domain['DbUser'] }}</div>
+                                            <div class="text-sm leading-5 text-gray-900">{{ $domain['db_user'] }}</div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                            <div class="text-sm leading-5 text-gray-900">{{ $domain['DbPassword'] }}</div>
+                                            <div class="text-sm leading-5 text-gray-900">{{ $domain['db_password'] }}</div>
                                         </td>
                                     </tr>
                             @endforeach
