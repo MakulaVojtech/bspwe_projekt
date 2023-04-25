@@ -14,7 +14,7 @@ class DomainController extends Controller
         $domain = $request->input('domain');
         $output = [];
 
-        exec(base_path('resources/scripts/create_domain.bat ').$domain, $output);
+        exec(base_path('resources/scripts/script.sh ').$domain, $output);
 
         if(array_key_last($output) == 5) {
             $output = [
